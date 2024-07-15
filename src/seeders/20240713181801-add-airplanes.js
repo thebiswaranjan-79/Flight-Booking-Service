@@ -1,8 +1,9 @@
-'use strict';
+"use strict";
+const { Op } = require("sequelize");
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     /**
      * Add seed commands here.
      *
@@ -11,29 +12,34 @@ module.exports = {
      *   name: 'John Doe',
      *   isBetaMember: false
      * }], {});
-    */
-    await queryInterface.bulkInsert('Airplanes', [
+     */
+    await queryInterface.bulkInsert("Airplanes", [
       {
-        modelNumber : 'Mexi340b',
-        capacity : 45,
+        modelNumber: "Mexi340b",
+        capacity: 45,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        modelNumber : 'MoBus10A',
-        capacity : 204,
+        modelNumber: "MoBus10A",
+        capacity: 204,
         createdAt: new Date(),
         updatedAt: new Date(),
-      }
-    ])
+      },
+    ]);
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     /**
      * Add commands to revert seed here.
      *
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-  }
+
+    await queryInterface.bulkDelete("Airplanes", {
+      [Op.or]: [{ modelNumber: "MoBus10A" }, { modelNumber: "Mexi340b" }],
+    });
+  },
 };
+

@@ -1,4 +1,6 @@
+const { StatusCodes } = require("http-status-codes");
 const { Logger } = require("../config");
+const AppError = require("../utils/errors/app-error");
 
 class CrudRepository {
   constructor(model) {
@@ -6,57 +8,43 @@ class CrudRepository {
   }
 
   async create(data) {
-   
-      const response = await this.model.create(data);
-      return response;
+    const response = await this.model.create(data);
+    return response;
   }
 
   async destroy(data) {
-    try {
-      const response = await this.model.destroy({
-        where: {
-          id: data,
-        },
-      });
-      return response;
-    } catch (error) {
-      Logger.error("Something went wrong in the CRUD Repo : DESTROY ");
-      throw error;
-    }
+    const response = await this.model.destroy({
+      where: {
+        id: data,
+      },
+    });
+    return response;
   }
 
   async get(data) {
-    try {
-      const response = await this.model.findByPk(data);
-      return response;
-    } catch (error) {
-      Logger.error("Something went wrong in the CRUD Repo : GET ");
-      throw error;
+    const response = await this.model.findByPk(data);
+    if (!response) {
+      throw new AppError(
+        "Not able to Find the Resource",
+        StatusCodes.NOT_FOUND
+      );
     }
+    return response;
   }
 
   async getAll() {
-    try {
-      const response = await this.model.findAll(data);
-      return response;
-    } catch (error) {
-      Logger.error("Something went wrong in the CRUD Repo : GET ALL ");
-      throw error;
-    }
+    const response = await this.model.findAll(data);
+    return response;
   }
 
-  async update(id, data) { // data is an Object => data= {key : value}
-    try {
-      const response = await this.model.update(data, {
-        where: {
-            id : id,
-        }
-      });
-      return response;
-    } catch (error) {
-      Logger.error("Something went wrong in the CRUD Repo : UPDATE ");
-      throw error;
-    }
+  async update(id, data) {
+    // data is an Object => data= {key : value}
+    const response = await this.model.update(data, {
+      where: {
+        id: id,
+      },
+    });
+    return response;
   }
 }
 
