@@ -15,6 +15,7 @@ router.get('/', AirplaneController.getAirplanes);
 router.get('/:id', AirplaneController.getAirplane);
 
 router.get('/:id', AirplaneController.destroyAirplane);
+router.get('/:id', AirplaneController.destroyAirplane);
 
 
 
