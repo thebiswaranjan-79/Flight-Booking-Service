@@ -11,8 +11,10 @@ router.post('/', AirplaneMiddlewares.validateCreateRequest ,AirplaneController.c
 // api/v1/airplanes GET 
 router.get('/', AirplaneController.getAirplanes);
 
-// api/v1/airplane/id GET 
+// api/v1/airplane/id DELETE 
 router.get('/:id', AirplaneController.getAirplane);
+
+router.get('/:id', AirplaneController.destroyAirplane);
 
 
 
