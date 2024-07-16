@@ -9,7 +9,8 @@ const router = express.Router();
 router.post('/', AirplaneMiddlewares.validateCreateRequest ,AirplaneController.createAirplane);
 
 // api/v1/airplanes GET 
-router.get('/', AirplaneController.getAirplanes);
+router.get('/', 
+    AirplaneController.getAirplanes);
 
 // api/v1/airplane/id DELETE 
 router.get('/:id', AirplaneController.getAirplane);
