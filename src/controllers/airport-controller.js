@@ -32,7 +32,7 @@ async function getAirports(req, res) {
 async function getAirport(req, res) {
   try {
     const airport = await AirportService.getAirport(req.params.id);
-    SuccessResponse.data = airplane;
+    SuccessResponse.data = airport;
     return res.status(StatusCodes.OK).json(SuccessResponse);
   } catch (error) {
     ErrorResponse.error = error;

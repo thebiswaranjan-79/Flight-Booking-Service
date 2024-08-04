@@ -27,7 +27,7 @@ async function createAirport(data) {
 async function getAirports() {
   try {
     const airports = await airportRepository.getAll();
-    return airplanes;
+    return airports;
   } catch (error) {
     throw new AppError(
       "Cannot fetch data of all the airports",
@@ -40,7 +40,7 @@ async function getAirport(id) {
   try {
     const airport = await airportRepository.get(id);
     return airport;
-  } catch (error) {
+  } catch (error) { 
     if (error.statusCode == StatusCodes.NOT_FOUND) {
       throw new AppError(
         "The airport You requested is Not Present",
