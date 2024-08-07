@@ -4,4 +4,4 @@ function addRowLockOnFlights(flightId) {
 
 module.exports = {
     addRowLockOnFlights
-} 
+}
