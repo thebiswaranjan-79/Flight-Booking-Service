@@ -26,10 +26,37 @@ async function createFlight(req, res) {
 
 async function getAllFlights(req, res) {
   try {
-      const flights = await FlightService.getAllFlights(req.query);
-      SuccessResponse.data = flights;
+    const flights = await FlightService.getAllFlights(req.query);
+    SuccessResponse.data = flights;
+    return res.status(StatusCodes.CREATED).json(SuccessResponse);
+  } catch (error) {
+    ErrorResponse.error = error;
+    return res.status(error.statusCode).json(ErrorResponse);
+  }
+}
+
+async function getFlight(req, res) {
+  try {
+    const flight = await FlightService.getFlight(req.params.id);
+    SuccessResponse.data = flight;
+    return res.status(StatusCodes.OK).json(SuccessResponse);
+  } catch (error) {
+    ErrorResponse.error = error;
+    return res.status(error.StatusCodes).json(ErrorResponse);
+  }
+}
+
+async function updateSeats(req, res) {
+  try {
+      console.log(req.body);
+      const response = await FlightService.updateSeats({
+          flightId: req.params.id,
+          seats: req.body.seats, 
+          dec: req.body.dec
+      });
+      SuccessResponse.data = response;
       return res
-              .status(StatusCodes.CREATED)
+              .status(StatusCodes.OK)
               .json(SuccessResponse);
   } catch(error) {
       ErrorResponse.error = error;
@@ -42,4 +69,6 @@ async function getAllFlights(req, res) {
 module.exports = {
   createFlight,
   getAllFlights,
+  getFlight,
+  updateSeats
 };

@@ -11,5 +11,9 @@ router.post('/', FlightMiddlewares.validateCreateRequest ,FlightController.creat
 // /api/v1/flights?MUM_DEL GET
 
 router.get('/', FlightController.getAllFlights);
+router.get('/:id', FlightController.getFlight);
+
+// PATCH request 
+router.patch('/:id/seats',FlightMiddlewares.validateUpdateSeatsRequest ,FlightController.updateSeats);
 
 module.exports = router;
